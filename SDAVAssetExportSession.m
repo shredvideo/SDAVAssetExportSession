@@ -435,15 +435,24 @@
 
 - (void)cancelExport
 {
+    [self cancelExport:nil];
+}
+
+- (void)cancelExport:(void (^)())completion
+{
     if (self.inputQueue)
     {
         dispatch_async(self.inputQueue, ^
-        {
-            [self.writer cancelWriting];
-            [self.reader cancelReading];
-            [self complete];
-            [self reset];
-        });
+                       {
+                           [self.writer cancelWriting];
+                           [self.reader cancelReading];
+                           [self complete];
+                           [self reset];
+                           if (completion)
+                           {
+                               dispatch_async(dispatch_get_main_queue(), completion);
+                           }
+                       });
     }
 }
 

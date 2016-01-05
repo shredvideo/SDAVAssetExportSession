@@ -183,6 +183,7 @@
  * You can invoke this method when the export is running.
  */
 - (void)cancelExport;
+- (void)cancelExport:(void (^)())completion;
 
 @end
 
