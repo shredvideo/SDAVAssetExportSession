@@ -35,6 +35,13 @@
     NSTimeInterval duration;
 }
 
+#if DEBUG
+- (void)dealloc
+{
+    NSLog(@"SDAVAssetExportSession dealloc!");
+}
+#endif
+
 + (id)exportSessionWithAsset:(AVAsset *)asset
 {
     return [SDAVAssetExportSession.alloc initWithAsset:asset];
